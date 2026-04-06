@@ -5,8 +5,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Use local openclaw from node_modules/.bin if available, otherwise fall back to global
-const openclawBin = path.join(__dirname, 'node_modules', '.bin', 'openclaw');
+// Use bundled openclaw.mjs from the repo
+const openclawBin = path.join(__dirname, 'openclaw.mjs');
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -19,9 +19,8 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        // Call openclaw CLI with the user's message
-        // Uses local installation from node_modules (no global install needed)
-        const openclawCmd = `"${openclawBin}" run --message "${userMessage.replace(/"/g, '\\"')}" --session epsilon`;
+        // Call bundled openclaw CLI with the user's message
+        const openclawCmd = `node "${openclawBin}" run --message "${userMessage.replace(/"/g, '\\"')}" --session epsilon`;
         
         exec(openclawCmd, { timeout: 60000 }, (error, stdout, stderr) => {
             if (error) {
@@ -47,5 +46,6 @@ app.post('/chat', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Epsilon server running at http://localhost:${PORT}`);
-    console.log(`OpenClaw is installed locally - no global setup required!`);
+    console.log(`Using bundled OpenClaw - fully self-contained!`);
+});
 });

@@ -4,13 +4,11 @@
   "description": "Epsilon - OpenClaw Agent with Web Interface",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "echo 'OpenClaw installed locally - no global install needed!'"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "ws": "^8.14.2",
-    "openclaw": "latest"
+    "ws": "^8.14.2"
   },
   "keywords": ["openclaw", "agent", "ai"],
   "author": "NullBit9",
